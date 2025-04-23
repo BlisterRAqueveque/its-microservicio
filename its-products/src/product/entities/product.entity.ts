@@ -3,10 +3,6 @@ import {
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
-  ManyToMany,
-  ManyToOne,
-  OneToMany,
-  OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -30,5 +26,4 @@ export class Product {
 
   @UpdateDateColumn()
   updatedAt: Date = new Date();
-
 }
