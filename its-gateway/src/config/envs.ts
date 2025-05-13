@@ -7,6 +7,7 @@ interface EnvVars {
   PORT: number;
   MS_USER_HOST: string;
   MS_USER_PORT: number;
+  SECRET: string;
 }
 
 const envsSchema = joi
@@ -14,6 +15,7 @@ const envsSchema = joi
     PORT: joi.number().required(),
     MS_USER_HOST: joi.string().required(),
     MS_USER_PORT: joi.number().required(),
+    SECRET: joi.string().required(),
   })
   .unknown(true);
 
@@ -27,4 +29,5 @@ export const envs = {
   PORT: envVars.PORT,
   MS_USER_HOST: envVars.MS_USER_HOST,
   MS_USER_PORT: envVars.MS_USER_PORT,
+  SECRET: envVars.SECRET,
 };
