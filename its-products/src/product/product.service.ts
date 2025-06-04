@@ -3,12 +3,14 @@ import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { Like, Repository } from 'typeorm';
 import { Product } from './entities/product.entity';
+import { FacturaService } from 'src/factura/factura.service';
 
 @Injectable()
 export class ProductService {
   constructor(
     @Inject('PRODUCT_REPOSITORY')
     private readonly repository: Repository<Product>,
+    private readonly facturaService: FacturaService,
   ) {}
 
   async create(createProductDto: CreateProductDto) {
@@ -37,6 +39,9 @@ export class ProductService {
   }
 
   update(id: number, updateProductDto: UpdateProductDto) {
+    // Stock
+    //Crear factura
+    this.facturaService.create({})
     return `This action updates a #${id} product`;
   }
 

@@ -1,0 +1,54 @@
+services:
+  its-gateway:
+    build:
+      context: ./its-gateway
+      dockerfile: Dockerfile
+    container_name: its-gateway
+    restart: unless-stopped
+    ports:
+      - '3000:3000'
+    command: ['sh', 'node dist/main.js']
+    env_file:
+      - its-gateway/.env
+    environment:
+      - MS_USER_HOST=its-user
+      - MS_PRODUCT_HOST=its-products
+    networks:
+      - its-connection
+    depends_on:
+      - its-products
+      - its-users
+    volumes:
+      - ./uploads:./uploads
+
+  its-products:
+    build:
+      context: ./its-products
+      dockerfile: Dockerfile
+    container_name: its-products
+    restart: unless-stopped
+    command: ['sh', 'node dist/main.js']
+    env_file:
+      - ./its-products/.env
+    environment:
+      - MS_USERS_HOST=its-users
+    networks:
+      - its-connection
+
+  its-users:
+    build:
+      context: ./its-users
+      dockerfile: Dockerfile
+    container_name: its-users
+    restart: unless-stopped
+    command: ['sh', 'node dist/main.js']
+    env_file:
+      - ./its-users/.env
+    environment:
+      - MS_PRODUCTS_HOST=its-products
+    networks:
+      - its-connection
+
+networks:
+  its-connection:
+    driver: bridge

@@ -3,9 +3,10 @@ import { ProductService } from './product.service';
 import { ProductController } from './product.controller';
 import { productProviders } from './product.provider';
 import { DatabaseModule } from 'src/database/database.module';
+import { FacturaModule } from 'src/factura/factura.module';
 
 @Module({
-  imports: [DatabaseModule],
+  imports: [DatabaseModule, FacturaModule],
   controllers: [ProductController],
   providers: [ProductService, ...productProviders],
 })

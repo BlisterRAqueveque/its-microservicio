@@ -9,13 +9,17 @@ export class ProductController {
   constructor(private readonly productService: ProductService) {}
 
   @MessagePattern('createProduct')
-  create(@Payload() createProductDto: CreateProductDto) {
+  // {product: {}, user: {}}
+  create(
+    @Payload('product') createProductDto: CreateProductDto,
+    @Payload('user') userId: number,
+  ) {
     return this.productService.create(createProductDto);
   }
 
   @MessagePattern('findAllProduct')
   findAll() {
-    return this.productService.findAll();
+    return this.productService.findAll({});
   }
 
   @MessagePattern('findOneProduct')
